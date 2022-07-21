@@ -16,14 +16,10 @@
       </a-layout-content>
       <a-layout-sider class="layout-mr_left10" theme="light" width="300">
         <a-card title="文章" :bordered="false">
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
+          <p v-for="item in article" :key="item.id">{{item.title}}</p>
         </a-card>
-        <a-card title="标签" :bordered="false">
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
+        <a-card class="card-tags" title="标签" :bordered="false">
+          <span class="card-tags_tag" v-for="item in tags" :key="item">{{item}}</span>
         </a-card>
       </a-layout-sider>
     </a-layout>
@@ -48,8 +44,19 @@ export default defineComponent({
     proxy.$axios.get('/users').then(res => {
       console.log(res)
     })
-    proxy.$axios.post('/article/name', {test: 1}).then(res => {
-      console.log(res)
+    const article = reactive([])
+    proxy.$axios.post('/article', {test: 1}).then(res => {
+      console.log(res.data.data)
+      res.data.data.map(item => {
+        article.push(item)
+      })
+    })
+    const tags = reactive([])
+    proxy.$axios.post('/article/tags', {test: 1}).then(res => {
+      res.data.data.map(item => {
+        tags.push(item)
+      })
+      console.log(tags)
     })
     const router = useRouter();
     const goPage = (path) => {
@@ -59,7 +66,9 @@ export default defineComponent({
     return {
       selectedKeys: ref([0]),
       goPage,
-      ...data
+      ...data,
+      article,
+      tags
     };
   },
   methods: {
@@ -75,12 +84,23 @@ p {
   // color: $main-color;
 }
 
+.article-tags {
+  font-size: 12px;
+  &:hover {
+    color: #6d9772;
+  }
+}
+.card-tags_tag {
+  padding: 0 10px;
+  // border: 1px solid green;
+}
+
 </style>
 <style>
 #components-layout-demo-fixed .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #0c3a2d;
   margin: 16px 24px 16px 0;
   float: left;
 }
