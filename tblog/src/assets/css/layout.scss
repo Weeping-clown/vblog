@@ -1,0 +1,38 @@
+.ant-layout-header {
+  padding: 0;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+.ant-menu {
+  flex: 1;
+  max-width: 1210px;
+  padding: 0;
+}
+
+.layout-content {
+  justify-content: center;
+  padding: 20px 50px;
+  margin-top: 64px;
+}
+.ant-layout-content {
+  max-width: 900px;
+}
+
+.ant-layout-sider {
+  background: #f0f2f5;
+}
+
+.layout-mr_left10 {
+  margin-left: 10px;
+}
+.layout-mr_top10 {
+  margin-top: 10px;
+}
+.layout-pd_around10 {
+  padding: 10px;
+}
+
+.article-tags {
+  float: right;
+}
